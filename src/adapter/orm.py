@@ -74,12 +74,13 @@ def start_mapper():
     payment_method_mapper = mapper(PaymentMethod, table_payment_method)
     mapper(Coupon, table_coupon)
 
-    product_mapper = mapper(Product, table_product, properties={
-        'category': relationship(category_mapper),
-        'supplier': relationship(supplier_mapper)
-    })
-
-    mapper(ProductDiscount, table_product_discount, properties={
-        'product': relationship(product_mapper),
+    product_discount_mapper = mapper(ProductDiscount, table_product_discount, properties={
         'payment_method': relationship(payment_method_mapper)
     })
+
+    product_mapper = mapper(Product, table_product, properties={
+        'category': relationship(category_mapper),
+        'supplier': relationship(supplier_mapper),
+        'discounts': relationship(product_discount_mapper)
+    })
+

@@ -1,8 +1,8 @@
-"""first revision
+"""relationship product with product_discount
 
-Revision ID: eab1e4218332
+Revision ID: 7de993c0b189
 Revises: 
-Create Date: 2022-01-11 15:56:58.449363
+Create Date: 2022-01-12 11:19:38.898823
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'eab1e4218332'
+revision = '7de993c0b189'
 down_revision = None
 branch_labels = None
 depends_on = None

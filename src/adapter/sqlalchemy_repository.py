@@ -3,6 +3,8 @@ from src.common.abstracts.repository import T, AbstractRepository
 
 
 class SqlAlchemyRepository(AbstractRepository[T]):
+    model: T
+    
     def __init__(self, session):
         self.session = session
 

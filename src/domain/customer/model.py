@@ -18,7 +18,6 @@ class Customer:
             if others_primary:
                 others_primary[0].primary == False
         self.addresses.append(address)
-        print("Passou")
 
 
 

@@ -22,13 +22,13 @@ start_mapper()
 
 db = Session()
 
-p = db.query(Product).filter_by(id=1).first()
+#p = db.query(Product).filter_by(id=1).first()
 
-print(p.id)
-db.close()
+#print(p.id)
+#db.close()
+"""
 
-
-payment_method = PaymentMethod(name='Methodo de pagamento 5', enabled=True, id=5)
+payment_method = PaymentMethod(name='Methodo de pagamento 5', enabled=True, id=6)
 db.add(payment_method)
 product_discount = ProductDiscount(mode='value', value=50, payment_method=payment_method)
 db.add(product_discount)
@@ -46,7 +46,7 @@ product.add_discount(product_discount)
 print(len(product.discounts))
 db.commit()
 db.close()
-
+"""
 #print(db.query(Product).filter_by(discount=1).first())
 """
 payment_method2 = PaymentMethod(name='Methodo de pagamento 2', enabled=True, id=2)
@@ -149,12 +149,12 @@ print(product_discount.id)
 
 # Testando Customer e Address
 address = Address('rua 1', 'cidade 1', 'ES', '1234', '111111', '', True)
-db.add(address)
+#db.add(address)
 customer = Customer('cliente 1', 'sobrenome', '11111111111', 'feminino', '11111111111')
 customer.add_address(address)
 db.add(customer)
 db.commit()
-db.close()
 
 print(db.query(Customer).filter_by(id=1).first().__dict__)
-print(db.query(Customer).filter_by(addresses_id=1).first())
+#print(db.query(Customer).filter_by(addresses_id=1).first())
+db.close()

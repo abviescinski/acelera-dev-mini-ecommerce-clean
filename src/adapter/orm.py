@@ -80,6 +80,7 @@ table_address = Table(
     Column('zipcode', String(6)),
     Column('neighbourhood', String(45)),
     Column('primary', Boolean),
+    Column('customer_id', ForeignKey('customer.id'))
 )
 
 table_customer = Table(
@@ -90,8 +91,7 @@ table_customer = Table(
     Column('last_name', String(45)),
     Column('phone_number', String(45)),
     Column('genre', String(45)),
-    Column('cpf_cnpj', String(45)),
-    Column('addresses_id', ForeignKey('address.id'))
+    Column('cpf_cnpj', String(45))
 )
 
 
@@ -113,5 +113,5 @@ def start_mapper():
 
     address_mapper = mapper(Address, table_address)
     customer_mapper = mapper(Customer, table_customer, properties={
-        'address': relationship(address_mapper)
+        'addresses': relationship(address_mapper)
     })

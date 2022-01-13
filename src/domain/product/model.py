@@ -19,9 +19,10 @@ class Product:
         if not discount.payment_method.enabled:
             raise Exception("Este método de pagamento não está disponível")
 
-        has_discount = len(list(filter(lambda d: d.payment_method.id == discount.payment_method.id, self.discounts))) > 0
+        has_discount = len(list(filter(
+            lambda d: d.payment_method.id == discount.payment_method.id, self.discounts))) > 0
         if has_discount:
-            raise Exception(f'Já existe um desconto para este método de pagammento: {discount.payment_method.name}')
+            raise Exception(
+                f'Já existe um desconto para este método de pagammento: {discount.payment_method.name}')
 
         self.discounts.append(discount)
-        

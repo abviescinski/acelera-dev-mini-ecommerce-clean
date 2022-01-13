@@ -9,6 +9,8 @@ from src.domain.supplier.model import Supplier
 from src.domain.coupon.model import Coupon
 from src.domain.payment_method.model import PaymentMethod
 from src.domain.product_discount.model import ProductDiscount
+from src.domain.address.model import Address
+from src.domain.customer.model import Customer
 
 metadata = Base.metadata
 
@@ -64,7 +66,32 @@ table_product_discount = Table(
     Column('mode', String(45)),
     Column('value', Numeric(10, 2)),
     Column('product_id', ForeignKey('products.id')),
-    Column('payment_method_id', ForeignKey('payment_method.id'))
+    Column('payment_method_id', ForeignKey('payment_method.id')),
+)
+
+table_address = Table(
+    'address',
+    metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('address', String),
+    Column('city', String(45)),
+    Column('state', String(2)),
+    Column('number', String(10)),
+    Column('zipcode', String(6)),
+    Column('neighbourhood', String(45)),
+    Column('primary', Boolean),
+)
+
+table_customer = Table(
+    'customer',
+    metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('first_name', String(45)),
+    Column('last_name', String(45)),
+    Column('phone_number', String(45)),
+    Column('genre', String(45)),
+    Column('cpf_cnpj', String(45)),
+    Column('addresses_id', ForeignKey('address.id'))
 )
 
 
@@ -84,3 +111,7 @@ def start_mapper():
         'discounts': relationship(product_discount_mapper)
     })
 
+    address_mapper = mapper(Address, table_address)
+    customer_mapper = mapper(Customer, table_customer, properties={
+        'address': relationship(address_mapper)
+    })

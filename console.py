@@ -1,14 +1,14 @@
 from src.adapter.database import Session
 from src.adapter.orm import start_mapper
 from src.services.sqlalchemy_uow import SqlAlchemyUnitOfWork
-from src.services.address_service import create_address
-from src.services.category_service import create_category
-from src.services.coupon_service import create_coupon
-from src.services.customer_service import create_customer
-from src.services.payment_method_service import create_payment_method
-from src.services.product_discount_service import create_product_discount
-from src.services.product_service import create_product
-from src.services.supplier_service import create_supplier
+from services.address.address_service import create_address
+from services.category.category_service import create_category
+from services.coupon.coupon_service import create_coupon
+from services.customer.customer_service import create_customer
+from services.payment_method.payment_method_service import create_payment_method
+from services.product_discount.product_discount_service import create_product_discount
+from services.product.product_service import create_product
+from services.supplier.supplier_service import create_supplier
 
 
 start_mapper()

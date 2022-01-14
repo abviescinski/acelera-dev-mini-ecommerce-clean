@@ -1,31 +1,41 @@
-from datetime import datetime
-from sqlalchemy.sql.sqltypes import DateTime
-from src.domain.address.model import Address
-from src.domain.customer.model import Customer
-from src.adapter.repositories.product_repository import ProductRepository
-from src.adapter.repositories.category_repository import CategoryRepository
-from src.adapter.repositories.supplier_repository import SupplierRepository
-from src.adapter.repositories.coupon_repository import CouponRepository
-from src.adapter.repositories.payment_method_repository import PaymentMethodRepository
-from src.adapter.repositories.product_discount_repository import ProductDiscountRepository
-from src.domain.product.model import Product
-from src.domain.category.model import Category
-from src.domain.supplier.model import Supplier
-from src.domain.coupon.model import Coupon
-from src.domain.payment_method.model import PaymentMethod
-from src.domain.product_discount.model import ProductDiscount
-
 from src.adapter.database import Session
 from src.adapter.orm import start_mapper
+from src.services.sqlalchemy_uow import SqlAlchemyUnitOfWork
+from src.services.address_service import create_address
+from src.services.category_service import create_category
+from src.services.coupon_service import create_coupon
+from src.services.customer_service import create_customer
+from src.services.payment_method_service import create_payment_method
+from src.services.product_discount_service import create_product_discount
+from src.services.product_service import create_product
+from src.services.supplier_service import create_supplier
+
 
 start_mapper()
 
 db = Session()
 
+uow = SqlAlchemyUnitOfWork(db)
+
+create_category('Categoria 1', uow)
+create_supplier('Fornecedor 1', uow)
+create_product(description='descricao 1', price=10, technical_details='detalhes tecnicos 1',
+               image='', visible=True, category_id=1, supplier_id=1, uow=uow)
+
+create_customer(first_name='Cliente 1', last_name='Sobrenome',
+                phone_number='11111111111', genre='U', cpf_cnpj='11111111111', uow=uow)
+create_address(address='rua 1', city='Cidade 1', state='ST', number='1',
+               zipcode='111111', neighbourhood='', primary=True, customer_id=1, uow=uow)
+
+create_payment_method(name='pagamento 1', enabled=True, uow=uow)
+create_product_discount(mode='percentage', value='10',
+                        product_id=1, payment_method_id=1, uow=uow)
+
+
 #p = db.query(Product).filter_by(id=1).first()
 
-#print(p.id)
-#db.close()
+# print(p.id)
+# db.close()
 """
 
 payment_method = PaymentMethod(name='Methodo de pagamento 5', enabled=True, id=6)
@@ -47,7 +57,7 @@ print(len(product.discounts))
 db.commit()
 db.close()
 """
-#print(db.query(Product).filter_by(discount=1).first())
+# print(db.query(Product).filter_by(discount=1).first())
 """
 payment_method2 = PaymentMethod(name='Methodo de pagamento 2', enabled=True, id=2)
 db.add(payment_method2)
@@ -129,23 +139,23 @@ print(product_discount.id)
 
 #pd = ProductDiscount(mode='value', value=100, payment_method=pm)
 
-#print(len(p.discounts))
+# print(len(p.discounts))
 
 
-#p.add_discount(pd)
+# p.add_discount(pd)
 
-#print(p.id)
-#db.commit()
-#db.close()
+# print(p.id)
+# db.commit()
+# db.close()
 
 
 # Buscando um desconto no banco de dados
 
 #pd = db.query(ProductDiscount).filter_by(id=1).first()
 
-#print(pd.value)
-#print(pd.payment_method.name)
-
+# print(pd.value)
+# print(pd.payment_method.name)
+"""
 
 # Testando Customer e Address
 address = Address('rua 1', 'cidade 1', 'ES', '1234', '111111', '', True)
@@ -158,3 +168,4 @@ db.commit()
 print(db.query(Customer).filter_by(id=1).first().__dict__)
 #print(db.query(Customer).filter_by(addresses_id=1).first())
 db.close()
+"""

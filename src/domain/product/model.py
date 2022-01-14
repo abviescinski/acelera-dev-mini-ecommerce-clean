@@ -23,6 +23,6 @@ class Product:
             lambda d: d.payment_method.id == discount.payment_method.id, self.discounts))) > 0
         if has_discount:
             raise Exception(
-                f'Já existe um desconto para este método de pagammento: {discount.payment_method.name}')
+                f'Já existe um desconto para este método de pagamento: {discount.payment_method.name}')
 
         self.discounts.append(discount)

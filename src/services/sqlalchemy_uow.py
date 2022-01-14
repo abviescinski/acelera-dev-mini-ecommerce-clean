@@ -14,11 +14,12 @@ from src.domain.payment_method.model import PaymentMethod
 from src.domain.product_discount.model import ProductDiscount
 from src.domain.address.model import Address
 from src.domain.customer.model import Customer
+from src.adapter.database import Session
 
 
 class SqlAlchemyUnitOfWork:
-    def __init__(self, session):
-        self.session = session
+    def __init__(self):
+        self.session = Session()
 
     def __enter__(self):
         self.product_repository = ProductRepository(self.session, Product)
